@@ -16,5 +16,13 @@ def second(request):
 
 def add_todo(request):
     form = request.POST
-    print(form)
-    return HttpResponse("Форма получена")        
+    text = form["todo_text"]
+    todo = ToDo(text=text)
+    todo.save()
+    return redirect(test)
+
+
+def delete_todo(request, id):
+    todo = ToDo.objects.get(id=id)
+    todo.delete()
+    return redirect(test)
